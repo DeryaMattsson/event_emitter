@@ -51,3 +51,10 @@ immediately and remaining listeners for that emit are skipped.
 - **`off` for a `once` listener takes the original callable**, not the
   internal wrapper. The wrapper is matched by introspection limited to
   wrappers created by this emitter, so passing arbitrary callables is safe.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
